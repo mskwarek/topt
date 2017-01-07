@@ -98,18 +98,21 @@ def determine_electric_field(config, x):
     return None
 
 
+def get_linspace_args(config_data):
+    return np.linspace(-2 * config_data.fiber.a, 2 * config_data.fiber.a, 150)
 
-
-def main():
-    config_data = get_test_data()
-    x = resolve_equations(config_data)
+def get_solutions(x):
     x = [[(round(10 * x[i][j]) / 10) for i in range(0, len(x))] for j in range(0, len(x[0]))]
     x = np.matrix(x)
     x = x.transpose()
-    u = x[:, 0]
-    w = x[:, 1]
+    u_solution = x[:, 0]
+    w_solution = x[:, 1]
+    return u_solution, w_solution
 
-    x = np.linspace(-2 * config_data.fiber.a, 2 * config_data.fiber.a, 150)
+
+def determine_electric_field(config_data, x):
+    u, w = get_solutions(x)
+    x = get_linspace_args(config_data)
     Ey = np.matrix([[float(0) for i in range(0, len(x))] for j in range(0, len(x))])
     # %Obliczanie pola elektrycznego
     if len(u) >= config_data.mod.p:
@@ -128,17 +131,26 @@ def main():
                              (scipy.special.kv(config_data.mod.m, w[config_data.mod.p - 1]))) \
                             * np.cos(config_data.mod.m * fi)
                 Ey[i, j] = value
+        return Ey
+    else:
+        return None
 
-        fig = plt.figure()
-        ax = fig.gca(projection='3d')
+def plot_electric_field(config_data, ey):
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    X, Y = np.meshgrid(get_linspace_args(config_data), get_linspace_args(config_data))
+    surf = ax.plot_surface(X, Y, ey, rstride=1, cstride=1,
+                           # facecolors=C,
+                           antialiased=True)
+    plt.show()
 
-        # Create X and Y data
-        X, Y = np.meshgrid(x, x)
+def main():
+    config_data = get_test_data()
+    x = resolve_equations(config_data)
 
-        surf = ax.plot_surface(X, Y, Ey, rstride=1, cstride=1,
-                               #facecolors=C,
-                               antialiased=True)
-        plt.show()
+    Ey = determine_electric_field(config_data, x)
+    if Ey is not None:
+        plot_electric_field(config_data, Ey)
     else:
         print 'Podany mod nie rozchodzi sie w swiatlowodzie o zadanych parametrach'
 
