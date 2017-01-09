@@ -144,6 +144,12 @@ def plot_electric_field(config_data, ey):
                            antialiased=True)
     plt.show()
 
+def test_js_plot():
+    config_data = get_test_data()
+    x = resolve_equations(config_data)
+    Ey = determine_electric_field(config_data, x)
+    return Ey
+
 def main():
     config_data = get_test_data()
     x = resolve_equations(config_data)

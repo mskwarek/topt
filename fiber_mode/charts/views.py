@@ -1,72 +1,22 @@
 # coding=utf-8
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
-def charts(request):
-    browser_stats = [['Chrome', 52.9], ['Firefox', 27.7], ['Opera', 1.6],
-                     ['Internet Explorer', 12.6], ['Safari', 4]]
+def index(request):
+    """for test working server"""
+    #return django.http.HttpResponse("MyApp server" )
+    return render_to_response('/home/marcin/topt/fiber_mode/charts/index.html', {}, context_instance=RequestContext(request))
 
-    temperature = [{u'data': {  '2012-00-01 00:00:00 -0700': 7,
-                                '2012-01-01 00:00:00 -0700': 6.9,
-                                '2012-02-01 00:00:00 -0700': 9.5,
-                                '2012-03-01 00:00:00 -0700': 14.5,
-                                '2012-04-01 00:00:00 -0700': 18.2,
-                                '2012-05-01 00:00:00 -0700': 21.5,
-                                '2012-06-01 00:00:00 -0700': 25.2,
-                                '2012-07-01 00:00:00 -0700': 26.5,
-                                '2012-08-01 00:00:00 -0700': 23.3,
-                                '2012-09-01 00:00:00 -0700': 18.3,
-                                '2012-10-01 00:00:00 -0700': 13.9,
-                                '2012-11-01 00:00:00 -0700': 9.6},
-                    u'name': u'Tokyo'},
-                    {u'data': { '2012-00-01 00:00:00 -0700': -0.2,
-                                '2012-01-01 00:00:00 -0700': 0.8,
-                                '2012-02-01 00:00:00 -0700': 5.7,
-                                '2012-03-01 00:00:00 -0700': 11.3,
-                                '2012-04-01 00:00:00 -0700': 17,
-                                '2012-05-01 00:00:00 -0700': 22,
-                                '2012-06-01 00:00:00 -0700': 24.8,
-                                '2012-07-01 00:00:00 -0700': 24.1,
-                                '2012-08-01 00:00:00 -0700': 20.1,
-                                '2012-09-01 00:00:00 -0700': 14.1,
-                                '2012-10-01 00:00:00 -0700': 8.6,
-                                '2012-11-01 00:00:00 -0700': 2.5},
-                    u'name': u'New York'},
-                    {u'data': { '2012-00-01 00:00:00 -0700': -0.9,
-                                '2012-01-01 00:00:00 -0700': 0.6,
-                                '2012-02-01 00:00:00 -0700': 3.5,
-                                '2012-03-01 00:00:00 -0700': 8.4,
-                                '2012-04-01 00:00:00 -0700': 13.5,
-                                '2012-05-01 00:00:00 -0700': 17,
-                                '2012-06-01 00:00:00 -0700': 18.6,
-                                '2012-07-01 00:00:00 -0700': 17.9,
-                                '2012-08-01 00:00:00 -0700': 14.3,
-                                '2012-09-01 00:00:00 -0700': 9,
-                                '2012-10-01 00:00:00 -0700': 3.9,
-                                '2012-11-01 00:00:00 -0700': 1},
-                    u'name': u'Berlin'},
-                    {u'data': { '2012-00-01 00:00:00 -0700': 3.9,
-                                '2012-01-01 00:00:00 -0700': 4.2,
-                                '2012-02-01 00:00:00 -0700': 5.7,
-                                '2012-03-01 00:00:00 -0700': 8.5,
-                                '2012-04-01 00:00:00 -0700': 11.9,
-                                '2012-05-01 00:00:00 -0700': 15.2,
-                                '2012-06-01 00:00:00 -0700': 17,
-                                '2012-07-01 00:00:00 -0700': 16.6,
-                                '2012-08-01 00:00:00 -0700': 14.2,
-                                '2012-09-01 00:00:00 -0700': 10.3,
-                                '2012-10-01 00:00:00 -0700': 6.6,
-                                '2012-11-01 00:00:00 -0700': 4.8},
-                    u'name': u'Լոնդոն'}]
-
-    sizes = [['X-Small', 5], ['Small', 27], ['Medium', 10],
-             ['Large', 14], ['X-Large', 10]]
-
-    areas = {'2013-07-27 07:08:00 UTC': 4, '2013-07-27 07:09:00 UTC': 3,
-             '2013-07-27 07:10:00 UTC': 2, '2013-07-27 07:04:00 UTC': 2,
-             '2013-07-27 07:02:00 UTC': 3, '2013-07-27 07:00:00 UTC': 2,
-             '2013-07-27 07:06:00 UTC': 1, '2013-07-27 07:01:00 UTC': 5,
-             '2013-07-27 07:05:00 UTC': 5, '2013-07-27 07:03:00 UTC': 3,
-             '2013-07-27 07:07:00 UTC': 3}
-
-    return render(request, 'charts.html', locals())
+def ajax(request, module, function):
+    """dispatch ajax requests"""
+    try:
+        fun = getattr(getattr(globals()[str(module)], 'views'), str(function))
+        data = json.dumps( fun(request.GET) )
+        return django.http.HttpResponse(data, content_type='application/json')
+    except Exception as e:
+        return django.http.HttpResponseNotFound("myapp ajax error: " + str(traceback.format_exc()) )
+    except:
+        return django.http.HttpResponseNotFound("myapp ajax system error " )

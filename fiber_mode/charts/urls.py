@@ -4,5 +4,6 @@ from charts import views
 
 
 urlpatterns = [
-    url(r'^$', views.charts, name='charts'),
+    url(r"^ajax/(?P<module>\w+)/(?P<function>\w+)/", views.ajax, name='ajax'),
+    url(r'^$', views.index, name='index')	
 ]
