@@ -12,7 +12,7 @@ import matplotlib
 from pylab import *
 from Tkinter import *
 
-FIELDS = ("Długość fali","Fiber 1","Fiber 2","Fiber 3", "Mod m", "Mod p")
+FIELDS = ("Długość fali","Promień rdzenia","Wsp. załamania rdzenia","Wsp. załamania płaszcza", "Mod m", "Mod p")
 # n = 1.42
 # nc = 1.5
 # lam = 1.55 * 10**(-6)
