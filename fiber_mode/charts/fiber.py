@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import math
 import numpy as np
 import itertools
@@ -10,9 +8,7 @@ from matplotlib import cm
 import matplotlib.pyplot as plt
 import matplotlib
 from pylab import *
-from Tkinter import *
 
-FIELDS = ("Długość fali","Promień rdzenia","Wsp. załamania rdzenia","Wsp. załamania płaszcza", "Mod m", "Mod p")
 # n = 1.42
 # nc = 1.5
 # lam = 1.55 * 10**(-6)
@@ -148,8 +144,14 @@ def plot_electric_field(config_data, ey):
                            antialiased=True)
     plt.show()
 
-def main(config):
-    config_data = config
+def test_js_plot():
+    config_data = get_test_data()
+    x = resolve_equations(config_data)
+    Ey = determine_electric_field(config_data, x)
+    return Ey
+
+def main():
+    config_data = get_test_data()
     x = resolve_equations(config_data)
 
     Ey = determine_electric_field(config_data, x)
@@ -158,51 +160,5 @@ def main(config):
     else:
         print 'Podany mod nie rozchodzi sie w swiatlowodzie o zadanych parametrach'
 
-
-def makeform(root, fields):
-   entries = {}
-   for field in fields:
-      row = Frame(root)
-      lab = Label(row, width=22, text=field+": ", anchor='w')
-      ent = Entry(row)
-      ent.insert(0,"0")
-      row.pack(side=TOP, fill=X, padx=5, pady=5)
-      lab.pack(side=LEFT)
-      ent.pack(side=RIGHT, expand=YES, fill=X)
-      entries[field] = ent
-   return entries
-
-def create_gui():
-
-	master = Tk()
-	master.title('Projekt #2 TOPT')
-	ents = makeform(master, FIELDS)
-	
-	b1 = Button(master, text='Rysuj', command=(lambda e=ents: parse_data(e)))
-	b1.pack(side=LEFT, padx=5, pady=5)
-
-	
-	b2 = Button(master, text = "Zamknij", command=master.quit)
-	b2.pack(side=LEFT, padx=5, pady=5)
-	master.mainloop()
-
-
-def parse_data(entries):
-	
-	lam = float(entries[FIELDS[0]].get()) #podawac w formacie z e, np 5e-06
-	fiber_1 = float(entries[FIELDS[1]].get())
-	fiber_2 = float(entries[FIELDS[2]].get())
-	fiber_3 = float(entries[FIELDS[3]].get())
-	fiber = Fiber(fiber_1, fiber_2, fiber_3)
-
-	mod_m = int(entries[FIELDS[4]].get())
-	mod_p = int(entries[FIELDS[5]].get())
-	
-	mod = Mod(mod_m, mod_p)
-	config = Config(lam, fiber, mod)
-
-	main(config)
-
 if __name__ == '__main__':
-	create_gui()
-	
+    main()
