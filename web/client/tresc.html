@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="{{ STATIC_URL }}marcin.js" data-cover></script>
 		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}styles.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     </head>
 
@@ -17,17 +18,40 @@
 
 	<div id="contenta" class="container" ng-controller="codeController">
 		<!-- view about -->
+		<form>
 		<div class="header"><b>Fiber mode</b></div>
 		<div class="usage">Wyznaczanie pola modu</div>
-			  M:      <input type="text" id="data_m"><div id="text_error" class="coded_error" style="display:none;"></div><br>
-			  P:      <input type="text" id="data_p"><br>
-			  Lambda: <input type="text" id="data_lam">x 10^(-6)<br>
-			  a:      <input type="text" id="data_a">x 10^(-6)<br>
-			  N:      <input type="text" id="data_n"><br>
-			  Nc:     <input type="text" id="data_nc"><br>
-			<div>{{result}}</div>
+		<form>
+		  <div class="form-group">
+			<label for="M">M</label>
+			<input type="text" class="form-control" id="M" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="P">P</label>
+			<input type="text" class="form-control" id="P" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="Lambda">Lambda (x 10^-6)</label>
+			<input type="text" class="form-control" id="Lambda" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="a">a (x 10^-6)</label>
+			<input type="text" class="form-control" id="a" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="N">N</label>
+			<input type="text" class="form-control" id="N" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="Nc">Nc</label>
+			<input type="text" class="form-control" id="Nc" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<textarea class="form-control custom-control" id="result_label" rows="3" style="resize:none"></textarea>  
+		  </div>
 		  <button ng-click="myFunction()">Resolve!</button>		  
 		  <div id="myDiv" style="width:800px; height:800px;"></div>
+		  </form>	
 	</div>
 
     </body>

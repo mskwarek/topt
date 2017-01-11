@@ -18,10 +18,10 @@ angular.module('myAppControllers', [])
 						srvInfo.getMatrix(
 						function(data) {
 							if(angular.isUndefined(data['matrix']) || data['matrix'] === null ){
-								$scope.somethingWrong = "Nie mozna wyznacyzm modu";
-								$scope.result = "Nie udało się";
+								document.getElementById('result_label').value =  "Nie mozna wyznaczyć modu";
 								return;
 							}
+							document.getElementById('result_label').value =  "";
 							// console.log(data['matrix']);
 							// document.getElementById('myDiv').value = data['matrix'];
 							$scope.somethingRight = "Obliczono";
@@ -57,6 +57,6 @@ angular.module('myAppServices', [])
     .service('srvInfo',
              function($http) {
                  this.getMatrix = function(callback){
-                 	return $http.get('/ajax/fiberMode/getMatrix/?data_m='+document.getElementById('data_m').value+'&data_p='+document.getElementById('data_p').value+'&data_lam='+document.getElementById('data_lam').value+'&data_a='+document.getElementById('data_a').value+'&data_n='+document.getElementById('data_n').value+'&data_nc='+document.getElementById('data_nc').value+'& ').success(callback);
+                 	return $http.get('/ajax/fiberMode/getMatrix/?data_m='+document.getElementById('M').value+'&data_p='+document.getElementById('P').value+'&data_lam='+document.getElementById('Lambda').value+'&data_a='+document.getElementById('a').value+'&data_n='+document.getElementById('N').value+'&data_nc='+document.getElementById('Nc').value+'& ').success(callback);
                  }
              });
