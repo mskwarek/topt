@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html ng-app="fiber">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <title>Fibers</title>
+		<script src="{{ STATIC_URL }}angular.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}marcin.js" data-cover></script>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}styles.css" />
+
+    </head>
+
+    <body>
+
+	<div id="contenta" class="container" ng-controller="codeController">
+		<!-- view about -->
+		<div class="header"><b>Fiber mode</b></div>
+		<div class="usage">Wyznaczanie pola modu</div>
+			  M:      <input type="text" id="text_to_code"><div id="text_error" class="coded_error" style="display:none;"></div><br>
+			  P:      <input type="text" id="text_to_decode"><br>
+			  Lambda: <input type="text" id="text_to_decode">x 10^(-6)<br>
+			  a:      <input type="text" id="text_to_decode">x 10^<br>
+			  N:      <input type="text" id="text_to_decode"><br>
+			  Nc:     <input type="text" id="text_to_decode"><br>
+
+		  <button ng-click="myFunction()">Resolve!</button>
+		  <div id="myDiv" style="width:800px; height:800px;"></div>
+	</div>
+
+    </body>
+</html>
