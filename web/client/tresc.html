@@ -19,14 +19,14 @@
 		<!-- view about -->
 		<div class="header"><b>Fiber mode</b></div>
 		<div class="usage">Wyznaczanie pola modu</div>
-			  M:      <input type="text" id="text_to_code"><div id="text_error" class="coded_error" style="display:none;"></div><br>
-			  P:      <input type="text" id="text_to_decode"><br>
-			  Lambda: <input type="text" id="text_to_decode">x 10^(-6)<br>
-			  a:      <input type="text" id="text_to_decode">x 10^<br>
-			  N:      <input type="text" id="text_to_decode"><br>
-			  Nc:     <input type="text" id="text_to_decode"><br>
-
-		  <button ng-click="myFunction()">Resolve!</button>
+			  M:      <input type="text" id="data_m"><div id="text_error" class="coded_error" style="display:none;"></div><br>
+			  P:      <input type="text" id="data_p"><br>
+			  Lambda: <input type="text" id="data_lam">x 10^(-6)<br>
+			  a:      <input type="text" id="data_a">x 10^(-6)<br>
+			  N:      <input type="text" id="data_n"><br>
+			  Nc:     <input type="text" id="data_nc"><br>
+			<div>{{result}}</div>
+		  <button ng-click="myFunction()">Resolve!</button>		  
 		  <div id="myDiv" style="width:800px; height:800px;"></div>
 	</div>
 

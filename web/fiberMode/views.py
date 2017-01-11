@@ -144,16 +144,34 @@ def plot_electric_field(config_data, ey):
                            antialiased=True)
     plt.show()
 
+def parseRequest(request):
+    lam = float(request['data_lam']) * 10 ** (-6)  # dlugosc fali
+    fiber_data = Fiber(float(request['data_a']) * 10 ** (-6), float(request['data_nc']), float(request['data_n']))
+    #print float(request['data_a']) * 10 ** (-6), float(request['data_nc']), float(request['data_n'])   
+    mod = Mod(int(request['data_m']), int(request['data_p']))
+    #print mod  
+    return Config(lam, fiber_data, mod)
+
+def validateData(config):
+    if config.fiber.nc < config.fiber.n:
+        raise Exception
+
+def validateSolutions(solutions, cfg):
+    if cfg.mod.p > len(solutions):
+        raise Exception
+
 def getMatrix(request):
-    print request
-    lam = 5 * 10 ** (-6)  # dlugosc fali
-    fiber_data = Fiber(5 * 10 ** (-6), 1.46, 1.45)
-    mod = Mod(request['data_m'], request['data_p'])
-    cfg = Config(lam, fiber_data, mod)
-    config_data = get_test_data()
-    x = resolve_equations(config_data)
-    Ey = determine_electric_field(config_data, x)
-    return {"matrix" : np.matrix.tolist(Ey)}
+    cfg = parseRequest(request)
+    try:
+        validateData(cfg)
+        #config_data = get_test_data()
+        x = resolve_equations(cfg)
+        validateSolutions(x, cfg)
+        Ey = determine_electric_field(cfg, x)
+
+        return {"matrix" : np.matrix.tolist(Ey)}#, "v" : get_normalized_freq(config)}
+    except:
+        return {}
 
 def main():
     config_data = get_test_data()

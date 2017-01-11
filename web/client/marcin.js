@@ -17,7 +17,15 @@ angular.module('myAppControllers', [])
 					$scope.myFunction = function(data){
 						srvInfo.getMatrix(
 						function(data) {
+							if(angular.isUndefined(data['matrix']) || data['matrix'] === null ){
+								$scope.somethingWrong = "Nie mozna wyznacyzm modu";
+								$scope.result = "Nie udało się";
+								return;
+							}
+							// console.log(data['matrix']);
 							// document.getElementById('myDiv').value = data['matrix'];
+							$scope.somethingRight = "Obliczono";
+							result = 1;
 							x_base = linspace(-2, 2, 150);
 							x = [];
 							for (var i=0;i<data['matrix'].length;i++ ) { 
@@ -41,8 +49,6 @@ angular.module('myAppControllers', [])
 							// Plotting the surfaces..
 							Plotly.newPlot('myDiv', [data_z1, data_z2, data_z3]);
 						});	
-						document.getElementById('text_to_code').style='background-color:white;';
-						document.getElementById('text_error').style='display:none;';	
 					}
 				 }]);
 
@@ -50,13 +56,7 @@ angular.module('myAppControllers', [])
 angular.module('myAppServices', [])
     .service('srvInfo',
              function($http) {
-                 this.Decode = function(callback) {
-                     return $http.get('/ajax/AtBashCoderPython/Decode/?text='+document.getElementById('text_to_decode').value+'& ').success(callback);
-                 };
-                 this.Code = function(callback) {
-                     return $http.get('/ajax/AtBashCoderPython/Code/?text='+document.getElementById('text_to_code').value+'& ').success(callback);
-                 };
                  this.getMatrix = function(callback){
-                 	return $http.get('/ajax/fiberMode/getMatrix/?data_m='+document.getElementById('text_to_code').value+'&data_p='+document.getElementById('text_to_decode').value+'& ').success(callback);
+                 	return $http.get('/ajax/fiberMode/getMatrix/?data_m='+document.getElementById('data_m').value+'&data_p='+document.getElementById('data_p').value+'&data_lam='+document.getElementById('data_lam').value+'&data_a='+document.getElementById('data_a').value+'&data_n='+document.getElementById('data_n').value+'&data_nc='+document.getElementById('data_nc').value+'& ').success(callback);
                  }
              });
