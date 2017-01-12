@@ -15,13 +15,23 @@ SECRET_KEY = 'kw$@=pa)zdjmjx^6z65-+x3c5j+^ydyj1!t!@_q+z2qw06&1*i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
-TEMPLATE_DIRS = (BASE_DIR, 
-    "client/"
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'client')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # Application definition
 INSTALLED_APPS = (
@@ -33,11 +43,13 @@ INSTALLED_APPS = (
     'fiberMode'
 )
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-    'client',
-)
 STATIC_URL = '/static/'
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'client')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
