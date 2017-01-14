@@ -1,3 +1,5 @@
+%matlab module for determinate fiber modes
+
 %%LP modes , Calculate and draw
 %Programmed by Ammar Rajab.
 %Tishreen University , Latakia , Syria.
