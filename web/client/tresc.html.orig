@@ -1,0 +1,119 @@
+<<<<<<< c4aa3014967d17f31aab8b0e552cce445a256c16
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html ng-app="fiber">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <title>Fibers</title>
+		<script src="{{ STATIC_URL }}angular.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}marcin.js" data-cover></script>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}styles.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+
+	<div id="contenta" class="container" ng-controller="codeController">
+		<!-- view about -->
+		<form>
+		<div class="header"><b>Fiber mode</b></div>
+		<div class="usage">Wyznaczanie pola modu</div>
+		<form>
+		  <div class="form-group">
+			<label for="M">M</label>
+			<input type="text" class="form-control" id="M" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="P">P</label>
+			<input type="text" class="form-control" id="P" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="Lambda">Lambda (x 10^-6)</label>
+			<input type="text" class="form-control" id="Lambda" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="a">a (x 10^-6)</label>
+			<input type="text" class="form-control" id="a" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="N">N</label>
+			<input type="text" class="form-control" id="N" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="Nc">Nc</label>
+			<input type="text" class="form-control" id="Nc" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<textarea class="form-control custom-control" id="result_label" rows="3" style="resize:none"></textarea>  
+		  </div>
+		  <button ng-click="myFunction()">Resolve!</button>		  
+		  <div id="myDiv" style="width:800px; height:800px;"></div>
+		  </form>	
+	</div>
+
+    </body>
+</html>
+=======
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html ng-app="fiber">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <title>Fibers</title>
+		<script src="/static/angular.min.js"></script>
+		<script type="text/javascript" src="/static/marcin.js" data-cover></script>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/styles.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+
+	<div id="contenta" class="container" ng-controller="codeController">
+		<!-- view about -->
+		<form>
+		<div class="header"><b>Fiber mode</b></div>
+		<div class="usage">Wyznaczanie pola modu</div>
+		<form>
+		  <div class="form-group">
+			<label for="M">M</label>
+			<input type="text" class="form-control" id="M" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="P">P</label>
+			<input type="text" class="form-control" id="P" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="Lambda">Lambda (x 10^-6)</label>
+			<input type="text" class="form-control" id="Lambda" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="a">a (x 10^-6)</label>
+			<input type="text" class="form-control" id="a" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="N">N</label>
+			<input type="text" class="form-control" id="N" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<label for="Nc">Nc</label>
+			<input type="text" class="form-control" id="Nc" placeholder="">
+		  </div>
+		  <div class="form-group">
+			<textarea class="form-control custom-control" id="result_label" rows="3" style="resize:none"></textarea>  
+		  </div>
+		  <button ng-click="myFunction()">Resolve!</button>		  
+		  <div id="myDiv" style="width:800px; height:800px;"></div>
+		  </form>	
+	</div>
+
+    </body>
+</html>
+>>>>>>> * getting solutions corrected

@@ -85,10 +85,9 @@ def resolve_equations(config):
     x1 = []
     n = 0
     u0, w0 = get_equations(config)
-    for i in range(0, len(u0)-1):
+    for i in range(0, len(u0)):
         eq = Equations(config)
         x_prim = fsolve(eq.fun, [u0[i], w0[i]])
-        print x_prim
         if np.imag(x_prim[0]) == 0 and np.imag(x_prim[1]) == 0 and x_prim[0] >= 0 and x_prim[1] >= 0:
             x1.append(x_prim)
             n += 1
@@ -102,32 +101,12 @@ def determine_electric_field(config, x):
 def get_linspace_args(config_data):
     return np.linspace(-2 * config_data.fiber.a, 2 * config_data.fiber.a, 150)
 
-
-def unique_rows(data):
-    uniq = []
-    print data
-    for row1 in data:
-        add = True
-        for row2 in uniq:
-            if row1[0] == row2[0] and row1[1] == row2[1]:
-                add = False
-        if add:
-            uniq.append(row1)
-
-    return np.matrix(uniq)
-    #    return uniques
-
-
 def get_solutions(x):
-    print x
     x = [[(round(10 * x[i][j]) / 10) for i in range(0, len(x))] for j in range(0, len(x[0]))]
     x = np.matrix(x)
     x = x.transpose()
-    print "x = ", x
-    y = unique_rows(x.tolist())
-    print "y = ", y
-    u_solution = y[:, 0]
-    w_solution = y[:, 1]
+    u_solution = x[:, 0]
+    w_solution = x[:, 1]
     return u_solution, w_solution
 
 
@@ -136,8 +115,6 @@ def determine_electric_field(config_data, x):
     x = get_linspace_args(config_data)
     Ey = np.matrix([[float(0) for i in range(0, len(x))] for j in range(0, len(x))])
     # %Obliczanie pola elektrycznego
-    print "len u = ", len(u)
-    print "p = ", config_data.mod.p
     if len(u) >= config_data.mod.p:
         for i in range(0, len(x)):
             for j in range(0, len(x)):
@@ -158,7 +135,6 @@ def determine_electric_field(config_data, x):
     else:
         return None
 
-
 def plot_electric_field(config_data, ey):
     fig = plt.figure()
     ax = fig.gca(projection='3d')
@@ -168,39 +144,11 @@ def plot_electric_field(config_data, ey):
                            antialiased=True)
     plt.show()
 
-
-def parseRequest(request):
-    lam = float(request['data_lam']) * 10 ** (-6)  # dlugosc fali
-    fiber_data = Fiber(float(request['data_a']) * 10 ** (-6), float(request['data_nc']), float(request['data_n']))
-    #print float(request['data_a']) * 10 ** (-6), float(request['data_nc']), float(request['data_n'])   
-    mod = Mod(int(request['data_m']), int(request['data_p']))
-    #print mod  
-    return Config(lam, fiber_data, mod)
-
-
-def validateData(config):
-    if config.fiber.nc < config.fiber.n:
-        raise Exception
-
-
-def validateSolutions(solutions, cfg):
-    if cfg.mod.p > len(solutions):
-        raise Exception
-
-
-def getMatrix(request):
-    cfg = parseRequest(request)
-    try:
-        validateData(cfg)
-        #config_data = get_test_data()
-        x = resolve_equations(cfg)
-        validateSolutions(x, cfg)
-        Ey = determine_electric_field(cfg, x)
-
-        return {"matrix" : np.matrix.tolist(Ey)}#, "v" : get_normalized_freq(config)}
-    except:
-        return {}
-
+def test_js_plot():
+    config_data = get_test_data()
+    x = resolve_equations(config_data)
+    Ey = determine_electric_field(config_data, x)
+    return Ey
 
 def main():
     config_data = get_test_data()

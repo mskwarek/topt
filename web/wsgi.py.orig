@@ -1,0 +1,27 @@
+<<<<<<< c4aa3014967d17f31aab8b0e552cce445a256c16
+## @file wsgi.py
+#  @brief Django wsgi interface
+
+"""
+Django wsgi interface, internal django file
+"""
+
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+=======
+## @file wsgi.py
+#  @brief Django wsgi interface
+
+"""
+Django wsgi interface, internal django file
+"""
+
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+>>>>>>> * getting solutions corrected

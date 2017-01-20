@@ -1,0 +1,39 @@
+<<<<<<< c4aa3014967d17f31aab8b0e552cce445a256c16
+## @file web/urls.py
+#  @brief Django urls
+
+from django.conf.urls import patterns, include, url
+#from django.conf import settings
+
+import views
+#import version.models
+
+#web_srv_prefix = version.models.getWebSrvPrefix()
+
+urlpatterns = patterns('',
+                       url(r"^ajax/(?P<module>\w+)/(?P<function>\w+)/", views.ajax, name='ajax'),
+                       url(r'^$', views.index, name='index')
+                       #url(r'^', views.index, name='index')
+)
+
+
+
+=======
+## @file web/urls.py
+#  @brief Django urls
+
+from django.conf.urls import url
+
+import views
+#import version.models
+
+#web_srv_prefix = version.models.getWebSrvPrefix()
+
+urlpatterns = [url(r"^ajax/(?P<module>\w+)/(?P<function>\w+)/", views.ajax, name='ajax'),
+               url(r'^$', views.index, name='index'),
+              #url(r'^', views.index, name='index')
+]
+
+
+
+>>>>>>> * getting solutions corrected
