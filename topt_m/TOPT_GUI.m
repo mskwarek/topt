@@ -127,14 +127,14 @@ function calculatebutton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-lambda=(handles.param_lam)*1e-6  %dlugosc fali
-nc=(handles.param_nc)
-n=(handles.param_n)   %wsp. zalamania nc-rdzen, n plaszcz 
-a=(handles.param_a) * 1e-6        %promieï¿½ rdzenia, b->inf
-m=(handles.param_m)
-p=(handles.param_p) 
+lambda=(handles.param_lam)*1e-6;  %dlugosc fali
+nc=(handles.param_nc);
+n=(handles.param_n);   %wsp. zalamania nc-rdzen, n plaszcz 
+a=(handles.param_a) * 1e-6;        %promieï¿½ rdzenia, b->inf
+m=(handles.param_m);
+p=(handles.param_p); 
 
-[u, w] = projekt2(m, p, lambda, a, n, nc)
+[u, w] = projekt2(m, p, lambda, a, n, nc);
 x=linspace(-2*a,2*a,150);
 Ey = zeros(length(x), length(x));
 
@@ -155,7 +155,7 @@ Ey = zeros(length(x), length(x));
     else
         cla(handles.plot_3, 'reset')
         cla(handles.plot_2, 'reset')
-        msgbox('Podany mod nie rozchodzi siÄ™ w takim Å›wiatÅ‚owodzie')
+        msgbox('Podany mod nie rozchodzi siê w takim œwiat³owodzie')
         return;
     end
     surf(handles.plot_3, x,x,Ey)
