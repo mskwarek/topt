@@ -19,6 +19,7 @@ angular.module('myAppControllers', [])
 						function(data) {
 							if(angular.isUndefined(data['matrix']) || data['matrix'] === null ){
 								document.getElementById('result_label').value =  "Nie mozna wyznaczyć modu";
+								Plotly.deleteTraces('myDiv', 0);
 								return;
 							}
 							document.getElementById('result_label').value =  "";
@@ -57,6 +58,8 @@ angular.module('myAppServices', [])
     .service('srvInfo',
              function($http) {
                  this.getMatrix = function(callback){
+					document.getElementById('result_label').value =  "";
+								
                  	return $http.get('/ajax/fiberMode/getMatrix/?data_m='+document.getElementById('M').value+'&data_p='+document.getElementById('P').value+'&data_lam='+document.getElementById('Lambda').value+'&data_a='+document.getElementById('a').value+'&data_n='+document.getElementById('N').value+'&data_nc='+document.getElementById('Nc').value+'& ').success(callback);
                  }
              });
